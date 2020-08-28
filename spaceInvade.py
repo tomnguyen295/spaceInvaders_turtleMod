@@ -2,6 +2,7 @@ import turtle as t
 import random as r
 import winsound as ws 
 import pygame
+import keyboard
 
 # Set up screen
 background = "Assets/OriginalAssets/background.gif"
@@ -10,7 +11,7 @@ wn.setup(width=0.5, height=0.9, starty=0)
 wn.bgcolor("#636363")
 wn.title("Space Invsaders")
 wn.bgpic(background)
-# wn.tracer(0) # Shuts off all turtle screen updates, will manually update in main loop
+wn.tracer(0) # Shuts off all turtle screen updates, will manually update in main loop
 
 
 # Background music
@@ -91,7 +92,7 @@ bullet.setpos(0,-400)
 bullet.speed(0)
 
 
-bulletSpeed = 10
+bulletSpeed = 2
 # bulletSpeed = 7
 
 # Define bullet state
@@ -118,7 +119,7 @@ def isCollision(t1, t2):
 
 
 # Program movement of player
-playerSpeed = 20
+playerSpeed = .2
 def moveLeft():
     if (player.xcor()-playerSpeed > -285):
         player.setx(player.xcor()-playerSpeed)
@@ -134,21 +135,21 @@ def moveRight():
 
 # Create keyboard bindings
 wn.listen()
-wn.onkeypress(moveLeft,"Left")
-wn.onkeypress(moveLeft,"a")
-wn.onkeypress(moveRight,"Right") 
-wn.onkeypress(moveRight,"d")
+# wn.onkeypress(moveLeft,"Left")
+# wn.onkeypress(moveLeft,"a")
+# wn.onkeypress(moveRight,"Right") 
+# wn.onkeypress(moveRight,"d")
 wn.onkeypress(fire,"space")
 
 # Alternate way to eliminate lag
-wn.delay(1)
+# wn.delay(1)
 
 # Create enemies
 # Choose number of enemies
 number_of_enemies = 5
 enemies = []
 
-enemySpeed = 0.5
+enemySpeed = 0.1
 # enemySpeed = 0.05
 # enemiesPos = [-200, 250]
 
@@ -184,21 +185,25 @@ def gameOver():
 
 # Main game loop
 while gameOn:
-    # wn.update() #Manual update
+    wn.update() #Manual update
     # Move the enemies
     for enemy in enemies:
         enemy.setx(enemy.xcor() + enemySpeed)
         # Boundary check for enemies
         if (enemy.xcor() > 285 or enemy.xcor() < -285):
             if (enemySpeed > 0):
-                enemySpeed = -(enemySpeed + .025)
+                enemySpeed = -(enemySpeed + .0075)
             else:
-                enemySpeed = abs(enemySpeed) + .025
+                enemySpeed = abs(enemySpeed) + .0075
             for enemy in enemies:
                 enemy.sety(enemy.ycor() - 50)
         if (enemy.ycor() < -300):
             gameOver()
 
+        if keyboard.is_pressed('a') or keyboard.is_pressed("Left"):
+            moveLeft()
+        if keyboard.is_pressed('d') or keyboard.is_pressed("Right"):
+            moveRight()
         # Check for kill
         if isCollision(bullet, enemy):
             # Reset bullet
