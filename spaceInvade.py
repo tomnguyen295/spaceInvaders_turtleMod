@@ -15,9 +15,9 @@ wn.tracer(0) # Shuts off all turtle screen updates, will manually update in main
 
 
 # Background music
-pygame.mixer.init()
-pygame.mixer.music.load("Assets/BorrowedAssets/Lost Sky - Fearless pt.II.wav")
-pygame.mixer.music.play(-1,0.0)
+# pygame.mixer.init()
+# pygame.mixer.music.load("Assets/BorrowedAssets/Lost Sky - Fearless pt.II.wav")
+# pygame.mixer.music.play(-1,0.0)
 
 # Register custom shapes
 
@@ -119,7 +119,7 @@ def isCollision(t1, t2):
 
 
 # Program movement of player
-playerSpeed = .2
+playerSpeed = .05
 def moveLeft():
     if (player.xcor()-playerSpeed > -285):
         player.setx(player.xcor()-playerSpeed)
@@ -149,8 +149,8 @@ wn.onkeypress(fire,"space")
 number_of_enemies = 5
 enemies = []
 
-enemySpeed = 0.1
-# enemySpeed = 0.05
+# enemySpeed = 0.1
+enemySpeed = 0.05
 # enemiesPos = [-200, 250]
 
 # Add enemies to list
